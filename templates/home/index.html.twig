@@ -1,0 +1,206 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="bg-white text-[#242121] font-sans">
+
+        {# NAVBAR #}
+        <nav class="bg-[#242121] text-white px-8 py-4 flex justify-between items-center fixed w-full z-50">
+            <div class="font-semibold text-lg">Arthur PERDREAU</div>
+            <ul class="flex space-x-6 text-sm">
+                <li><a href="#" class="hover:text-[#00B2FF]">Home</a></li>
+                <li><a href="#about" class="hover:text-[#00B2FF]">About me</a></li>
+                <li><a href="#projects" class="hover:text-[#00B2FF]">Projects</a></li>
+                <li><a href="#contact" class="hover:text-[#00B2FF]">Contact me</a></li>
+            </ul>
+        </nav>
+
+        {# HERO SECTION #}
+        <section class="min-h-screen flex items-center justify-center bg-white pt-24 px-16">
+            <div class="max-w-7xl mx-auto  w-full grid md:grid-cols-2 gap-10 items-center">
+                <div class="space-y-6">
+                    <h1 class="text-4xl md:text-5xl font-bold leading-snug">
+                        <span class="text-[#00B2FF]">Hi</span>, I’m Arthur PERDREAU
+                    </h1>
+                    <p class="text-lg">I am currently a student in the first year of web development in Lyon.</p>
+                </div>
+                <div class="flex justify-center">
+                    <div class="w-60 h-60 bg-black rounded-full"></div> {# Cercle noir placeholder photo #}
+                </div>
+            </div>
+        </section>
+
+        {# ABOUT SECTION #}
+        <section id="about" class="min-h-screen bg-[#242121] text-white flex items-center p-16">
+            <div class="max-w-7xl mx-auto w-full">
+                <h2 class="text-[#00B2FF] text-4xl font-bold mb-24 text-center md:text-left">About me</h2>
+
+                <div class="grid md:grid-cols-2 gap-20">
+
+                    {# Colonne 1 : Formation actuelle #}
+                    <div class="flex flex-col items-center text-center">
+                        <i class="bi bi-geo-alt text-white text-7xl mb-6"></i>
+                        <h3 class="text-3xl text-[#00B2FF] font-semibold mb-6">Current Training :</h3>
+                        <ul class="list-disc list-inside space-y-6 text-xl leading-relaxed text-left">
+                            <li>In my first year of Web Development at ESD Lyon</li>
+                            <li>Preparing the CDA title Application Developer Designer<br>(in French: Concepteur Développeur d’Applications)</li>
+                        </ul>
+                    </div>
+
+                    {# Colonne 2 : Diplôme visé #}
+                    <div class="flex flex-col items-center text-center">
+                        <i class="bi bi-crosshair text-white text-7xl mb-6"></i>
+                        <h3 class="text-3xl text-[#00B2FF] font-semibold mb-6">Diploma targeted :</h3>
+                        <ul class="list-disc list-inside space-y-6 text-xl leading-relaxed text-left">
+                            <li>Professional Title: Application Developer Designer (CDA)</li>
+                            <li>State-recognized, registered with the RNCP<br>(French National Directory of Professional Certifications).<br>Level 6 / Bachelor's degree equivalent (Bac +3)</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section id="projects" class="py-24 bg-white text-black">
+            <div class="max-w-7xl mx-auto px-4">
+                <h2 class="text-[#00B2FF] text-4xl font-bold mb-16">My projects</h2>
+
+                <div class="grid md:grid-cols-3 gap-12">
+                    {% for project in projects %}
+                        <div class="text-center">
+                            {% if project.images|length > 0 %}
+                                <div class="carousel relative w-48 h-48 mx-auto mb-6 overflow-hidden rounded">
+                                    <div class="slides flex transition-transform duration-300">
+                                        {% for image in project.images %}
+                                            <img src="{{ vich_uploader_asset(image, 'imageFile') }}"
+                                                 class="w-48 h-48 object-cover flex-shrink-0" />
+                                        {% endfor %}
+                                    </div>
+                                    {% if project.images|length > 1 %}
+                                        <button class="prev absolute top-1/2 left-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm">&#10094;</button>
+                                        <button class="next absolute top-1/2 right-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm">&#10095;</button>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+
+
+                            <h3 class="text-xl font-semibold border-b-2 border-[#00B2FF] inline-block pb-1 mb-4">
+                                {{ project.title }}
+                            </h3>
+                            <p class="mb-4 max-w-xs mx-auto">{{ project.description }}</p>
+
+                            <div class="border-t-2 border-[#00B2FF] w-3/4 mx-auto mt-4 pt-4">
+                                <ul class="text-left text-sm list-disc list-inside">
+                                    {% for techno in project.technologies %}
+                                        <li>{{ techno.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <a href="{{ project.link }}"
+                               target="_blank"
+                               class="inline-block mt-6 bg-[#00B2FF] text-white px-6 py-2 rounded hover:bg-blue-600 transition">
+                                Visit →
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+        <section id="contact" class="bg-[#242121] text-white py-24 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="text-[#00B2FF] text-4xl font-bold mb-12">Contact me</h2>
+
+                {% for flash in app.flashes('success') %}
+                    <div class="bg-green-500 text-white p-4 rounded mb-6">{{ flash }}</div>
+                {% endfor %}
+
+                {{ form_start(contactForm) }}
+                <div class="grid grid-cols-1 gap-6 text-left">
+                    <div>
+                        {{ form_label(contactForm.name, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium'}}) }}
+                        {{ form_widget(contactForm.name, {
+                            'attr': {
+                                'class': 'w-full p-3 rounded-md bg-[#2e2e2e] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00B2FF]'
+                            }
+                        }) }}
+                        {{ form_errors(contactForm.name) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(contactForm.email, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium'}}) }}
+                        {{ form_widget(contactForm.email, {
+                            'attr': {
+                                'class': 'w-full p-3 rounded-md bg-[#2e2e2e] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00B2FF]'
+                            }
+                        }) }}
+                        {{ form_errors(contactForm.email) }}
+                    </div>
+
+                    <div>
+                        {{ form_label(contactForm.message, null, {'label_attr': {'class': 'block mb-2 text-sm font-medium'}}) }}
+                        {{ form_widget(contactForm.message, {
+                            'attr': {
+                                'class': 'w-full p-3 h-40 rounded-md bg-[#2e2e2e] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00B2FF]'
+                            }
+                        }) }}
+                        {{ form_errors(contactForm.message) }}
+                    </div>
+
+                    <div>
+                        {{ form_widget(contactForm.submit, {
+                            'attr': {
+                                'class': 'bg-[#00B2FF] text-white px-6 py-3 rounded hover:bg-blue-600 transition font-semibold w-full'
+                            }
+                        }) }}
+                    </div>
+                </div>
+                {{ form_end(contactForm) }}
+
+                <div class="mt-14 flex justify-center gap-8 flex-wrap">
+                    <a href="{{ asset('cv.pdf') }}" download class="bg-[#00B2FF] px-6 py-3 rounded text-white hover:bg-blue-600 transition">
+                        Download my resume (PDF)
+                    </a>
+                    <a href="https://github.com/arthurperdreau" target="_blank" class="inline-flex items-center text-white hover:text-[#00B2FF] transition text-lg">
+                        <i class="bi bi-github text-2xl mr-2"></i>
+                        My GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.carousel').forEach(carousel => {
+                const slides = carousel.querySelector('.slides');
+                const slideCount = slides.children.length;
+                let currentIndex = 0;
+
+                const updateSlidePosition = () => {
+                    slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+                };
+
+                const prevBtn = carousel.querySelector('.prev');
+                const nextBtn = carousel.querySelector('.next');
+
+                if (prevBtn && nextBtn) {
+                    prevBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                        updateSlidePosition();
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        currentIndex = (currentIndex + 1) % slideCount;
+                        updateSlidePosition();
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}
+
