@@ -90,7 +90,7 @@
                             <div class="border-t-2 border-[#00B2FF] w-3/4 mx-auto mt-4 pt-4">
                                 <ul class="text-left text-sm list-disc list-inside">
                                     {% for techno in project.technologies %}
-                                        <li>{{ techno.name }}</li>
+                                        <li><a href="{{ techno.link }}">{{ techno.name }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -166,11 +166,6 @@
                 </div>
             </div>
         </section>
-
-
-
-
-
     </div>
 
 
