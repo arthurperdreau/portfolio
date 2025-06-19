@@ -15,8 +15,8 @@ final class TechnoController extends AbstractController
     #[Route('/techno/new', name: 'app_techno_new')]
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
-        $techno=new Techno();
-        $form=$this->createForm(TechnoForm::class , $techno);
+        $techno = new Techno();
+        $form = $this->createForm(TechnoForm::class, $techno);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($techno);
@@ -24,7 +24,7 @@ final class TechnoController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
         return $this->render('techno/new.html.twig', [
-            'form'=>$form,
+            'form' => $form,
         ]);
     }
 }

@@ -27,8 +27,7 @@ class RegistrationController extends AbstractController
         Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $user = new User();
         $form = $this->createForm(RegistrationForm::class, $user);
         $form->handleRequest($request);
@@ -43,7 +42,8 @@ class RegistrationController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            $this->emailVerifier->sendEmailConfirmation('app_verify_email',
+                $user,
                 (new TemplatedEmail())
                     ->from(new Address('contact@arthurperdreau.com', 'mailBot'))
                     ->to((string) $user->getEmail())
