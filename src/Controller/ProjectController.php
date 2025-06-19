@@ -17,16 +17,16 @@ final class ProjectController extends AbstractController
     #[Route('/project/new', name: 'app_project_new')]
     public function index(Request $request, EntityManagerInterface $manager): Response
     {
-        $project=new Project();
-        $form=$this->createForm(ProjectForm::class , $project);
+        $project = new Project();
+        $form = $this->createForm(ProjectForm::class , $project);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $manager->persist($project);
             $manager->flush();
-            return $this->redirectToRoute('post_image', ['id'=>$project->getId()], );
+            return $this->redirectToRoute('post_image', ['id' => $project->getId()], );
         }
         return $this->render('project/new.html.twig', [
-            'form'=>$form,
+            'form' => $form,
         ]);
     }
 
