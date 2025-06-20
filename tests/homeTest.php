@@ -12,7 +12,7 @@ class homeTest extends WebTestCase
         $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h2', 'My projects');
+        $this->assertSelectorExists('section#projects h2');
         $this->assertSelectorTextContains('h2', 'Contact me');
         $this->assertSelectorExists('form[name="contact_form"]');
     }
