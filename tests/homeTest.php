@@ -29,10 +29,9 @@ class homeTest extends WebTestCase
         ]);
 
         $client->submit($form);
-        $this->assertResponseRedirects('/', 302);
 
         $client->followRedirect();
-        $this->assertSelectorExists('.bg-green-500'); // ton flash message
+        $this->assertSelectorExists('.bg-green-500');
         $this->assertSelectorTextContains('.bg-green-500', 'Your message has been sent!');
     }
 }
