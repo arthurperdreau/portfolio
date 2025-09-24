@@ -27,8 +27,9 @@ class Project
     #[ORM\ManyToMany(targetEntity: Techno::class, inversedBy: 'projects')]
     private Collection $technologies;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $link = null;
+
 
     /**
      * @var Collection<int, Image>
@@ -100,7 +101,7 @@ class Project
         return $this->link;
     }
 
-    public function setLink(string $link): static
+    public function setLink(?string $link): static
     {
         $this->link = $link;
 
