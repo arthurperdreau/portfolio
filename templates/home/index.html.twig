@@ -83,7 +83,18 @@
         </section>
         <section id="projects" class="py-24 bg-white text-black">
             <div class="max-w-7xl mx-auto px-4">
-                <h2 class="text-[#00B2FF] text-4xl font-bold mb-16">My projects</h2>
+                <h2 class="text-[#00B2FF] text-4xl font-bold mb-6">Some of my projects</h2>
+
+                {# Bloc d'information admin #}
+                <div class=" rounded-xl p-6 mb-16">
+                    <h3 class="text-2xl font-semibold mb-2 text-[#00B2FF]">Admin Access (Demo)</h3>
+                    <p class="text-sm text-gray-300 mb-2">To explore admin features on some applications, please use the following demo credentials:</p>
+                    <ul class="space-y-1 text-gray-200">
+                        <li><span class="font-semibold text-[#00B2FF]">Email:</span> u0392214499@gmail.com</li>
+                        <li><span class="font-semibold text-[#00B2FF]">Password:</span> admin123</li>
+                    </ul>
+                    <p class="text-xs text-gray-400 mt-3 italic">Note: This access is for demonstration purposes only.</p>
+                </div>
 
                 <div class="grid md:grid-cols-3 gap-12">
                     {% for project in projects %}
@@ -103,7 +114,6 @@
                                     {% endif %}
                                 </div>
                             {% endif %}
-
 
                             <h3 class="text-xl font-semibold border-b-2 border-[#00B2FF] inline-block pb-1 mb-4">
                                 {{ project.title }}
@@ -131,12 +141,12 @@
                                     Visit →
                                 </button>
                             {% endif %}
-
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </section>
+
         <section id="contact" class="bg-[#242121] text-white py-24 px-4">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="text-[#00B2FF] text-4xl font-bold mb-12">Contact me</h2>
