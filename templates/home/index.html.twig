@@ -89,16 +89,17 @@
                     {% for project in projects %}
                         <div class="text-center">
                             {% if project.images|length > 0 %}
-                                <div class="carousel relative w-48 h-48 mx-auto mb-6 overflow-hidden rounded">
+                                <div class="carousel relative w-48 h-48 mx-auto mb-6 overflow-hidden rounded bg-gray-100">
                                     <div class="slides flex transition-transform duration-300">
                                         {% for image in project.images %}
                                             <img src="{{ vich_uploader_asset(image, 'imageFile') }}"
-                                                 class="w-48 h-48 object-cover flex-shrink-0" />
+                                                 class="w-48 h-48 object-contain flex-shrink-0 bg-white" />
                                         {% endfor %}
                                     </div>
+
                                     {% if project.images|length > 1 %}
-                                        <button class="prev absolute top-1/2 left-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm">&#10094;</button>
-                                        <button class="next absolute top-1/2 right-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm">&#10095;</button>
+                                        <button class="prev absolute top-1/2 left-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm rounded-l">‹</button>
+                                        <button class="next absolute top-1/2 right-0 transform -translate-y-1/2 bg-[#00B2FF] text-white px-2 py-1 text-sm rounded-r">›</button>
                                     {% endif %}
                                 </div>
                             {% endif %}
